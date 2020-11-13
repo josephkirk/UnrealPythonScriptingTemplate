@@ -1,4 +1,6 @@
 import unreal
+from unreal_global import *
+
 unreal.log("""@
 
 ####################
@@ -8,3 +10,5 @@ unreal.log("""@
 ####################
 
 """)
+
+# import unreal_startup

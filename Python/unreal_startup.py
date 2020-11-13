@@ -1,5 +1,7 @@
 import unreal
 import unreal_uiutils
+from unreal_global import *
+from unreal_utils import AssetRegistryPostLoad
 unreal.log("""@
 
 ####################
@@ -12,22 +14,22 @@ Init Start up Script
 
 import BlueprintLibrary
 
-def register_menus():
-    # declare menu entry
-    testbutton1 = unreal_uiutils.create_menu_button("samplebutton", "open test ui", "unreal.log('Clicked on Sample Button')")
-    # testbutton2 = unreal_uiutils.create_menu_button("testbutton2", "test button 2","common_lib.test_function('Do button 2')")
-    
-    # create submenu in 'File' Menu
-    pythonsubmenu = unreal_uiutils.create_sub_submenu("File", "Python", "samplecustomtools", "Sample Custom Tools")
-    pythonsubmenu.add_section("test")
-    pythonsubmenu.add_menu_entry("test", testbutton1)
-    
-    # create new menu on main menu
-    new_mainmenu = unreal_uiutils.create_submenu("sample_tools", "Sample Tools")
-    new_mainmenu.add_section("test")
-    new_mainmenu.add_menu_entry("test", testbutton1)
-    
-    # refresh menu
-    unreal_uiutils.refresh()
+assetregistry_pretickhandle = None
 
-register_menus()
+def assetregistry_postload_handle(deltaTime):
+    """
+        Run callback method after registry run to prevent crashed when create new asset at startupS
+    """
+    unreal.log_warning("..Checking Asset Registy Status...")
+    if AssetRegistry.is_loading_assets():
+        unreal.log_warning("..Asset registy still loading...")
+    else:
+        unreal.log_warning("Asset registy ready!")
+        unreal.unregister_slate_post_tick_callback(assetregistry_pretickhandle)
+        AssetRegistryPostLoad.run_callbacks()
+
+assetregistry_pretickhandle = unreal.register_slate_post_tick_callback(assetregistry_postload_handle)
+
+import UserInterfaces
+
+unreal_uiutils.refresh()

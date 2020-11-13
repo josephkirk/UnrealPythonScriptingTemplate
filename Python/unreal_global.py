@@ -1,5 +1,7 @@
 import unreal
 
+AssetRegistry = unreal.AssetRegistryHelpers.get_asset_registry()
+
 UtilLibrary = unreal.EditorUtilityLibrary
 """
     rename_asset(asset, new_name) -> None
@@ -459,3 +461,217 @@ PathLib = unreal.Paths
     automation_dir() -> str
 """
 
+SystemLib = unreal.SystemLibrary
+"""
+    unregister_for_remote_notifications() -> None
+    unload_primary_asset_list(primary_asset_id_list) -> None
+    unload_primary_asset(primary_asset_id) -> None
+    transact_object(object) -> None
+    sphere_trace_single_for_objects(world_context_object, start, end, radius, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    sphere_trace_single_by_profile(world_context_object, start, end, radius, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    sphere_trace_single(world_context_object, start, end, radius, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    sphere_trace_multi_for_objects(world_context_object, start, end, radius, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    sphere_trace_multi_by_profile(world_context_object, start, end, radius, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    sphere_trace_multi(world_context_object, start, end, radius, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    sphere_overlap_components(world_context_object, sphere_pos, sphere_radius, object_types, component_class_filter, actors_to_ignore) -> Array(PrimitiveComponent) or None
+    sphere_overlap_actors(world_context_object, sphere_pos, sphere_radius, object_types, actor_class_filter, actors_to_ignore) -> Array(Actor) or None
+    snapshot_object(object) -> None
+    show_platform_specific_leaderboard_screen(category_name) -> None
+    show_platform_specific_achievements_screen(specific_player) -> None
+    show_interstitial_ad() -> None
+    show_ad_banner(ad_id_index, show_on_bottom_of_screen) -> None
+    set_window_title(title) -> None
+    set_volume_buttons_handled_by_system(enabled) -> None
+    set_user_activity(user_activity) -> None
+    set_suppress_viewport_transition_message(world_context_object, state) -> None
+    set_gamepads_block_device_feedback(block) -> None
+    retriggerable_delay(world_context_object, duration, latent_info) -> None
+    reset_gamepad_assignment_to_controller(controller_id) -> None
+    reset_gamepad_assignments() -> None
+    register_for_remote_notifications() -> None
+    quit_game(world_context_object, specific_player, quit_preference, ignore_platform_restrictions) -> None
+    quit_editor() -> None
+    print_text(world_context_object, text="Hello", print_to_screen=True, print_to_log=True, text_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=2.000000) -> None
+    print_string(world_context_object, string="Hello", print_to_screen=True, print_to_log=True, text_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=2.000000) -> None
+    not_equal_soft_object_reference(a, b) -> bool
+    not_equal_soft_class_reference(a, b) -> bool
+    not_equal_primary_asset_type(a, b) -> bool
+    not_equal_primary_asset_id(a, b) -> bool
+    normalize_filename(filename) -> str
+    move_component_to(component, target_relative_location, target_relative_rotation, ease_out, ease_in, over_time, force_shortest_rotation_path, move_action, latent_info) -> None
+    make_literal_text(value) -> Text
+    make_literal_string(value) -> str
+    make_literal_name(value) -> Name
+    make_literal_int(value) -> int32
+    make_literal_float(value) -> float
+    make_literal_byte(value) -> uint8
+    make_literal_bool(value) -> bool
+    load_interstitial_ad(ad_id_index) -> None
+    load_class_asset_blocking(asset_class) -> type(Class)
+    load_asset_blocking(asset) -> Object
+    line_trace_single_for_objects(world_context_object, start, end, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    line_trace_single_by_profile(world_context_object, start, end, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    line_trace_single(world_context_object, start, end, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    line_trace_multi_for_objects(world_context_object, start, end, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    line_trace_multi_by_profile(world_context_object, start, end, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    line_trace_multi(world_context_object, start, end, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    launch_url(url) -> None
+    un_pause_timer_handle(world_context_object, handle) -> None
+    un_pause_timer_delegate(delegate) -> None
+    un_pause_timer(object, function_name) -> None
+    timer_exists_handle(world_context_object, handle) -> bool
+    timer_exists_delegate(delegate) -> bool
+    timer_exists(object, function_name) -> bool
+    set_timer_delegate(delegate, time, looping, initial_start_delay=0.000000, initial_start_delay_variance=0.000000) -> TimerHandle
+    set_timer(object, function_name, time, looping, initial_start_delay=0.000000, initial_start_delay_variance=0.000000) -> TimerHandle
+    pause_timer_handle(world_context_object, handle) -> None
+    pause_timer_delegate(delegate) -> None
+    pause_timer(object, function_name) -> None
+    is_valid_timer_handle(handle) -> bool
+    is_timer_paused_handle(world_context_object, handle) -> bool
+    is_timer_paused_delegate(delegate) -> bool
+    is_timer_paused(object, function_name) -> bool
+    is_timer_active_handle(world_context_object, handle) -> bool
+    is_timer_active_delegate(delegate) -> bool
+    is_timer_active(object, function_name) -> bool
+    invalidate_timer_handle(handle) -> (TimerHandle, handle=TimerHandle)
+    get_timer_remaining_time_handle(world_context_object, handle) -> float
+    get_timer_remaining_time_delegate(delegate) -> float
+    get_timer_remaining_time(object, function_name) -> float
+    get_timer_elapsed_time_handle(world_context_object, handle) -> float
+    get_timer_elapsed_time_delegate(delegate) -> float
+    get_timer_elapsed_time(object, function_name) -> float
+    clear_timer_handle(world_context_object, handle) -> None
+    clear_timer_delegate(delegate) -> None
+    clear_timer(object, function_name) -> None
+    clear_and_invalidate_timer_handle(world_context_object, handle) -> TimerHandle
+    is_valid_soft_object_reference(soft_object_reference) -> bool
+    is_valid_soft_class_reference(soft_class_reference) -> bool
+    is_valid_primary_asset_type(primary_asset_type) -> bool
+    is_valid_primary_asset_id(primary_asset_id) -> bool
+    is_valid_class(class_) -> bool
+    is_valid(object) -> bool
+    is_unattended() -> bool
+    is_standalone(world_context_object) -> bool
+    is_split_screen(world_context_object) -> bool
+    is_server(world_context_object) -> bool
+    is_screensaver_enabled() -> bool
+    is_packaged_for_distribution() -> bool
+    is_logged_in(specific_player) -> bool
+    is_interstitial_ad_requested() -> bool
+    is_interstitial_ad_available() -> bool
+    is_dedicated_server(world_context_object) -> bool
+    is_controller_assigned_to_gamepad(controller_id) -> bool
+    hide_ad_banner() -> None
+    get_volume_buttons_handled_by_system() -> bool
+    get_unique_device_id() -> str
+    get_supported_fullscreen_resolutions() -> Array(IntPoint) or None
+    get_soft_object_reference_from_primary_asset_id(primary_asset_id) -> Object
+    get_soft_class_reference_from_primary_asset_id(primary_asset_id) -> Class
+    get_rendering_material_quality_level() -> int32
+    get_rendering_detail_mode() -> int32
+    get_project_saved_directory() -> str
+    get_project_directory() -> str
+    get_project_content_directory() -> str
+    get_primary_assets_with_bundle_state(required_bundles, excluded_bundles, valid_types, force_current_state) -> Array(PrimaryAssetId)
+    get_primary_asset_id_list(primary_asset_type) -> Array(PrimaryAssetId)
+    get_primary_asset_id_from_soft_object_reference(soft_object_reference) -> PrimaryAssetId
+    get_primary_asset_id_from_soft_class_reference(soft_class_reference) -> PrimaryAssetId
+    get_primary_asset_id_from_object(object) -> PrimaryAssetId
+    get_primary_asset_id_from_class(class_) -> PrimaryAssetId
+    get_preferred_languages() -> Array(str)
+    get_platform_user_name() -> str
+    get_platform_user_dir() -> str
+    get_path_name(object) -> str
+    get_outer_object(object) -> Object
+    get_object_name(object) -> str
+    get_object_from_primary_asset_id(primary_asset_id) -> Object
+    get_min_y_resolution_for_ui() -> int32
+    get_min_y_resolution_for3d_view() -> int32
+    get_local_currency_symbol() -> str
+    get_local_currency_code() -> str
+    get_game_time_in_seconds(world_context_object) -> float
+    get_gamepad_controller_name(controller_id) -> str
+    get_game_name() -> str
+    get_game_bundle_id() -> str
+    get_frame_count() -> int64
+    get_engine_version() -> str
+    get_display_name(object) -> str
+    get_device_id() -> str
+    get_default_locale() -> str
+    get_default_language() -> str
+    get_current_bundle_state(primary_asset_id, force_current_state) -> Array(Name) or None
+    get_convenient_windowed_resolutions() -> Array(IntPoint) or None
+    get_console_variable_int_value(variable_name) -> int32
+    get_console_variable_float_value(variable_name) -> float
+    get_console_variable_bool_value(variable_name) -> bool
+    get_component_bounds(component) -> (origin=Vector, box_extent=Vector, sphere_radius=float)
+    get_command_line() -> str
+    get_class_from_primary_asset_id(primary_asset_id) -> type(Class)
+    get_class_display_name(class_) -> str
+    get_ad_id_count() -> int32
+    get_actor_list_from_component_list(component_list, actor_class_filter) -> Array(Actor)
+    get_actor_bounds(actor) -> (origin=Vector, box_extent=Vector)
+    force_close_ad_banner() -> None
+    flush_persistent_debug_lines(world_context_object) -> None
+    flush_debug_strings(world_context_object) -> None
+    execute_console_command(world_context_object, command, specific_player=None) -> None
+    equal_equal_soft_object_reference(a, b) -> bool
+    equal_equal_soft_class_reference(a, b) -> bool
+    equal_equal_primary_asset_type(a, b) -> bool
+    equal_equal_primary_asset_id(a, b) -> bool
+    end_transaction() -> int32
+    draw_debug_string(world_context_object, text_location, text, test_base_actor=None, text_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000) -> None
+    draw_debug_sphere(world_context_object, center, radius=100.000000, segments=12, line_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000) -> None
+    draw_debug_point(world_context_object, position, size, point_color, duration=0.000000) -> None
+    draw_debug_plane(world_context_object, plane_coordinates, location, size, plane_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000) -> None
+    draw_debug_line(world_context_object, line_start, line_end, line_color, duration=0.000000, thickness=0.000000) -> None
+    draw_debug_frustum(world_context_object, frustum_transform, frustum_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000) -> None
+    draw_debug_float_history_transform(world_context_object, float_history, draw_transform, draw_size, draw_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000) -> None
+    draw_debug_float_history_location(world_context_object, float_history, draw_location, draw_size, draw_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000) -> None
+    draw_debug_cylinder(world_context_object, start, end, radius=100.000000, segments=12, line_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000) -> None
+    draw_debug_coordinate_system(world_context_object, axis_loc, axis_rot, scale=1.000000, duration=0.000000, thickness=0.000000) -> None
+    draw_debug_cone_in_degrees(world_context_object, origin, direction, length=100.000000, angle_width=45.000000, angle_height=45.000000, num_sides=12, line_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000) -> None
+    draw_debug_cone(world_context_object, origin, direction, length, angle_width, angle_height, num_sides, line_color, duration=0.000000, thickness=0.000000) -> None
+    draw_debug_circle(world_context_object, center, radius, num_segments=12, line_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000, y_axis=[0.000000, 1.000000, 0.000000], z_axis=[0.000000, 0.000000, 1.000000], draw_axis=False) -> None
+    draw_debug_capsule(world_context_object, center, half_height, radius, rotation, line_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000) -> None
+    draw_debug_camera(camera_actor, camera_color=[0.000000, 0.000000, 0.000000, 0.000000], duration=0.000000) -> None
+    draw_debug_box(world_context_object, center, extent, line_color, rotation=[0.000000, 0.000000, 0.000000], duration=0.000000, thickness=0.000000) -> None
+    draw_debug_arrow(world_context_object, line_start, line_end, arrow_size, line_color, duration=0.000000, thickness=0.000000) -> None
+    does_implement_interface(test_object, interface) -> bool
+    delay(world_context_object, duration, latent_info) -> None
+    create_copy_for_undo_buffer(object_to_modify) -> None
+    convert_to_relative_path(filename) -> str
+    convert_to_absolute_path(filename) -> str
+    conv_soft_obj_path_to_soft_obj_ref(soft_object_path) -> Object
+    conv_soft_object_reference_to_string(soft_object_reference) -> str
+    conv_soft_class_reference_to_string(soft_class_reference) -> str
+    conv_soft_class_path_to_soft_class_ref(soft_class_path) -> Class
+    conv_primary_asset_type_to_string(primary_asset_type) -> str
+    conv_primary_asset_id_to_string(primary_asset_id) -> str
+    conv_interface_to_object(interface) -> Object
+    control_screensaver(allow_screen_saver) -> None
+    component_overlap_components(component, component_transform, object_types, component_class_filter, actors_to_ignore) -> Array(PrimitiveComponent) or None
+    component_overlap_actors(component, component_transform, object_types, actor_class_filter, actors_to_ignore) -> Array(Actor) or None
+    collect_garbage() -> None
+    capsule_trace_single_for_objects(world_context_object, start, end, radius, half_height, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    capsule_trace_single_by_profile(world_context_object, start, end, radius, half_height, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    capsule_trace_single(world_context_object, start, end, radius, half_height, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    capsule_trace_multi_for_objects(world_context_object, start, end, radius, half_height, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    capsule_trace_multi_by_profile(world_context_object, start, end, radius, half_height, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    capsule_trace_multi(world_context_object, start, end, radius, half_height, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    capsule_overlap_components(world_context_object, capsule_pos, radius, half_height, object_types, component_class_filter, actors_to_ignore) -> Array(PrimitiveComponent) or None
+    capsule_overlap_actors(world_context_object, capsule_pos, radius, half_height, object_types, actor_class_filter, actors_to_ignore) -> Array(Actor) or None
+    can_launch_url(url) -> bool
+    cancel_transaction(index) -> None
+    box_trace_single_for_objects(world_context_object, start, end, half_size, orientation, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    box_trace_single_by_profile(world_context_object, start, end, half_size, orientation, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    box_trace_single(world_context_object, start, end, half_size, orientation, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> HitResult or None
+    box_trace_multi_for_objects(world_context_object, start, end, half_size, orientation, object_types, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    box_trace_multi_by_profile(world_context_object, start, end, half_size, orientation, profile_name, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    box_trace_multi(world_context_object, start, end, half_size, orientation, trace_channel, trace_complex, actors_to_ignore, draw_debug_type, ignore_self, trace_color=[0.000000, 0.000000, 0.000000, 0.000000], trace_hit_color=[0.000000, 0.000000, 0.000000, 0.000000], draw_time=5.000000) -> Array(HitResult) or None
+    box_overlap_components(world_context_object, box_pos, extent, object_types, component_class_filter, actors_to_ignore) -> Array(PrimitiveComponent) or None
+    box_overlap_actors(world_context_object, box_pos, box_extent, object_types, actor_class_filter, actors_to_ignore) -> Array(Actor) or None
+    begin_transaction(context, description, primary_object) -> int32
+    add_float_history_sample(value, float_history) -> DebugFloatHistory
+"""
