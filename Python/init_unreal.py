@@ -11,4 +11,4 @@ unreal.log("""@
 
 """)
 
-# import unreal_startup
+import unreal_startup

@@ -28,7 +28,7 @@ class AssetRegistryPostLoad:
             except Exception as why:
                 unreal.log_error("failed to run with error:\n{}".format(why))
 
-def create_unreal_asset(asset_name, package_path, factory, asset_class, force=False, save=True, is_blueprint=False, parent_class_is_python=False):
+def create_unreal_asset(asset_name, package_path, factory, asset_class, force=False, save=True):
     """
 
     INPUT:
@@ -52,43 +52,34 @@ def create_unreal_asset(asset_name, package_path, factory, asset_class, force=Fa
 
     asset_path = "{}/{}".format(package_path, asset_name)
     if AssetLibrary.does_asset_exist(asset_path):
-        if not force:
+        if force:
             unreal.log_warning("{} exists. Skip creating".format(asset_name))
             return
         else:
             unreal.log_warning("{} exists. Remove existing asset.".format(asset_name))
             AssetLibrary.delete_asset(asset_path)
  
-    factory.set_editor_property("parent_class", asset_class)
-    factory.set_editor_property("create_new", not is_python_generated)
-    # if AssetRegistry.is_loading_assets():
-    #     return
+    factory.set_editor_property("ParentClass", asset_class)
+
     new_asset = AssetTools.create_asset(asset_name, package_path, None, factory)
-
-
-    # if is_python_generated:
-    #     generated_class = new_asset.get_class()
-    #     unreal.log_warning(generated_class)
-    #     AssetLibrary.delete_asset(new_asset.get_path_name())
-    #     factory.set_editor_property("ParentClass", generated_class)
-    #     new_asset = AssetTools.create_asset(asset_name, package_path, None, factory)
-    if new_asset:
-        if is_blueprint:
-            unreal.EditorAssetLibrary.load_blueprint_class(new_asset.get_path_name())
-
-        if save:
-            AssetLibrary.save_loaded_asset(new_asset)
-        
-        return new_asset
+    
+    if save:
+        AssetLibrary.save_loaded_asset(new_asset)
+    
+    return new_asset
 
 def create_levelsequence_asset(asset_name, package_path, force=False, save=True):
     create_unreal_asset(asset_name, package_path, unreal.LevelSequenceFactoryNew(), unreal.LevelSequence, force, save)
 
-def create_blueprint_asset(asset_name, package_path, asset_parent_class, force=True, save=False):
-    create_unreal_asset(asset_name, package_path, unreal.BlueprintFactory(), asset_parent_class, force, save, True)
+def create_blueprint_asset(asset_name, package_path, asset_parent_class, force=False, save=True):
+    create_unreal_asset(asset_name, package_path, unreal.BlueprintFactory(), asset_parent_class, force, save)
 
-def create_editor_utility_blueprint(asset_name, asset_parent_class, force=True, save=False):
-    create_unreal_asset(asset_name, "/Engine/Transient", unreal.EditorUtilityBlueprintFactory(), asset_parent_class, force, save, True, True)
+def create_editor_utility_blueprint(asset_name, asset_parent_class, force=False, save=False):
+    create_unreal_asset(f"{asset_name}", "/Engine/", unreal.EditorUtilityBlueprintFactory(), asset_parent_class, force, save)
 
 def register_editor_utility_blueprint(asset_name, asset_parent_class):
     AssetRegistryPostLoad.register_callback(create_editor_utility_blueprint, asset_name, asset_parent_class)
+# def new_object(object_class):
+#     unreal.load_object(unreal.new_object(object_class))
+# def register_editor_utility_blueprint(asset_name, asset_parent_class):
+#     AssetRegistryPostLoad.register_callback(new_object, asset_parent_class)

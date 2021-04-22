@@ -20,13 +20,19 @@ Load Blueprint Library
 for m in __all__:
     # __import__(m, locals(), globals())
     try:
-        importlib.import_module("{}.{}".format(dir_basename, m))
-        command = 'import {mod};reload({mod})'.format(mod=m)
-        # unreal.log(command)
-        exec(command)
+        mod = importlib.import_module("{}.{}".format(dir_basename, m))
+        try:
+            reload(mod)
+        except:
+            importlib.reload(mod)
+        try:
+            unreal.reload(mod)
+        except:
+            unreal.log("{} is not Unreal Generated Class".format(m))
+
         unreal.log("Successfully import {}".format(m))
-    except Exception as why:
-        unreal.log_error("Fail to import {}\n{}".format(m, why))
+    except:
+        unreal.log_error("Fail to import {}".format(m))
 
 
 unreal.log("""@

@@ -4,20 +4,17 @@ import unreal
 
 @unreal.uclass()
 class SampleActorAction(unreal.ActorActionUtility):
-    @unreal.ufunction(override=True)
-    def get_supported_class(self):
-        return unreal.Actor
+    # @unreal.ufunction(override=True)
+    # def get_supported_class(self):
+    #     return unreal.Actor
 
     @unreal.ufunction(static=True, meta=dict(CallInEditor=True, Category="Sample Actor Action Library"))
-    def test_actor_action():
+    def python_test_actor_action():
         unreal.log("Execute Sample Actor Action")
 
     @unreal.ufunction(params=[str], static=True, meta=dict(CallInEditor=True, Category="Sample Actor Action Library"))
-    def test_actor_action2(input_string):
+    def python_test_actor_action_with_parameters(input_string):
         unreal.log("Execute Sample Actor Action with {}".format(input_string))
 
-    @unreal.ufunction(params=[str], static=True, meta=dict(CallInEditor=True, Category="Sample Actor Action Library"))
-    def test_actor_action3(input_string):
-        unreal.log("Execute Sample Actor Action with {}".format(input_string))
-
-# unreal_utils.register_editor_utility_blueprint("SampleActorUtility", SampleActorAction)
+# unreal.new_object(SampleActorAction)
+unreal_utils.register_editor_utility_blueprint("SampleActorUtility", SampleActorAction)
