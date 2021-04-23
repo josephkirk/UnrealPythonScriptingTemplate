@@ -8,13 +8,19 @@ reloadbutton = unreal_uiutils.create_menu_button("ReloadBtn", "Reload", "import 
 quitbutton = unreal_uiutils.create_menu_button("QuitUnrealBtn", "Quit Unreal", "SystemLib.quit_editor()")
 
 # create submenu in 'File' Menu
-pythonsubmenu = unreal_uiutils.extend_mainmenu("File", "Common", "Commontools", "Common Tools")
+pythonsubmenu = unreal_uiutils.extend_mainmenu_item("File", "Common", "Commontools", "Common Tools")
 pythonsubmenu.add_section("common", "Common")
 pythonsubmenu.add_menu_entry("common", reloadbutton)
 pythonsubmenu.add_menu_entry("common", quitbutton)
 
 # Create Standalone Menu
-new_mainmenu = unreal_uiutils.extend_mainmenu_item("Common", "Common")
+new_mainmenu = unreal_uiutils.extend_mainmenu("Common", "Common")
+new_mainmenu.add_section("common", "Common", "Common")
+new_mainmenu.add_menu_entry("common", reloadbutton)
+new_mainmenu.add_menu_entry("common", quitbutton)
+
+# Create Toolbar Button
+new_mainmenu = unreal_uiutils.extend_mainmenu("Common", "Common")
 new_mainmenu.add_section("common", "Common", "Common")
 new_mainmenu.add_menu_entry("common", reloadbutton)
 new_mainmenu.add_menu_entry("common", quitbutton)
