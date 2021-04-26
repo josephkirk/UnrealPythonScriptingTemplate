@@ -1,7 +1,9 @@
 import unreal
+import sys
 from os.path import dirname, basename, isfile, join
 import glob
 import importlib
+import traceback
 
 dir_name = dirname(__file__)
 dir_basename = basename(dir_name)
@@ -12,7 +14,7 @@ unreal.log("""@
 
 ####################
 
-Load Blueprint Library 
+Load UI Library 
 
 ####################
 """)
@@ -25,15 +27,10 @@ for m in __all__:
             reload(mod)
         except:
             importlib.reload(mod)
-        try:
-            unreal.reload(mod)
-        except:
-            unreal.log("{} is not Unreal Generated Class".format(m))
-
         unreal.log("Successfully import {}".format(m))
-    except:
-        unreal.log_error("Fail to import {}".format(m))
-
+    except Exception as why:
+        unreal.log_error("Fail to import {}.\n {}".format(m, why))
+        traceback.print_exc(file=sys.stdout)
 
 unreal.log("""@
 
