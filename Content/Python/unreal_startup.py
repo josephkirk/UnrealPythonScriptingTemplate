@@ -12,8 +12,6 @@ Init Start up Script
 
 """)
 
-import BlueprintLibrary
-
 assetregistry_pretickhandle = None
 
 def assetregistry_postload_handle(deltaTime):
@@ -30,6 +28,12 @@ def assetregistry_postload_handle(deltaTime):
 
 assetregistry_pretickhandle = unreal.register_slate_post_tick_callback(assetregistry_postload_handle)
 
+import BlueprintLibrary
 import UserInterfaces
+
+def reload():
+    import importlib
+    importlib.reload(BlueprintLibrary)
+    importlib.reload(UserInterfaces)
 
 unreal_uiutils.refresh()

@@ -23,14 +23,22 @@ for m in __all__:
     # __import__(m, locals(), globals())
     try:
         mod = importlib.import_module("{}.{}".format(dir_basename, m))
-        try:
-            reload(mod)
-        except:
-            importlib.reload(mod)
-        try:
-            unreal.reload(mod)
-        except:
-            unreal.log("{} is not Unreal Generated Class".format(m))
+        if m in globals():
+            unreal.log("""@
+            ####################
+
+            ReLoad Blueprint Library 
+
+            ####################
+            """)
+            try:
+                reload(mod)
+            except:
+                importlib.reload(mod)
+            # try:
+            #     unreal.reload(mod)
+            # except:
+            #     unreal.log("{} is not Unreal Generated Class".format(m))
 
         unreal.log("Successfully import {}".format(m))
     except Exception as why:

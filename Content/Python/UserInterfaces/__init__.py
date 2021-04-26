@@ -18,20 +18,26 @@ Load UI Library
 
 ####################
 """)
-
 for m in __all__:
     # __import__(m, locals(), globals())
     try:
         mod = importlib.import_module("{}.{}".format(dir_basename, m))
-        try:
-            reload(mod)
-        except:
-            importlib.reload(mod)
+        if m in globals():
+            unreal.log("""@
+####################
+
+ReLoad UI Library 
+
+####################
+            """)
+            try:
+                reload(mod)
+            except:
+                importlib.reload(mod)
         unreal.log("Successfully import {}".format(m))
     except Exception as why:
         unreal.log_error("Fail to import {}.\n {}".format(m, why))
         traceback.print_exc(file=sys.stdout)
-
 unreal.log("""@
 
 ####################

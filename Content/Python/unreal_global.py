@@ -13,6 +13,8 @@ UtilLibrary = unreal.EditorUtilityLibrary
     get_actor_reference(path_to_actor) -> Actor
 """
 
+AutomationScheduler = unreal.AutomationScheduler
+
 AssetTools = unreal.AssetToolsHelpers.get_asset_tools()
 """
     rename_referencing_soft_object_paths(packages_to_check, asset_redirector_map)
