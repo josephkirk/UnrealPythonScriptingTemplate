@@ -66,14 +66,26 @@ def extend_editor():
     )
     sub_asset_context_menu.add_menu_entry("python.assetmenu", action_sampleassetprint)
 
+    # Extend Asset Context Menu - Only show for Level Sequence Asset
+    sequence_contextmenu = unreal_uiutils.get_sequence_asset_context_menu()
+    sub_sequence_context_menu = unreal_uiutils.extend_toolmenu(sequence_contextmenu, "PythonSequenceContextMenu", "Python Sequence Actions")
+    sub_sequence_context_menu.add_section("python.sequencemenu", "Tools")
+    action_samplesequenceprint = unreal_uiutils.create_menu_button(
+        name="SampleSequenceTool",
+        label="Print Selected Assets",
+        command_string='print(UtilLibrary.get_selected_assets())',
+    )
+    sub_sequence_context_menu.add_menu_entry("python.sequencemenu", action_samplesequenceprint)
+
     # Extend Actor Context Menu
     actor_context_menu = unreal_uiutils.get_actor_context_menu()
     actor_context_menu.add_section("python.actoractions", "Python Tools")
+    #!NOTE: The submenu can only be seen when right click in viewport and not the outliner
     sub_actor_context_menu = actor_context_menu.add_sub_menu(actor_context_menu.menu_name, "python.actoractions", "PythonActorContextMenu", "Python Actor Actions")
-    is_sub_actor_context_menu_registered = unreal.ToolMenus.get().is_menu_registered(sub_actor_context_menu.menu_name)
-    if not is_sub_actor_context_menu_registered:
-        unreal.ToolMenus.get().register_menu(sub_actor_context_menu.menu_name, actor_context_menu.menu_name)
-    print("{} - is registered {}".format(sub_actor_context_menu.menu_name, is_sub_actor_context_menu_registered))
+    # is_sub_actor_context_menu_registered = unreal.ToolMenus.get().is_menu_registered(sub_actor_context_menu.menu_name)
+    # if not is_sub_actor_context_menu_registered:
+        # unreal.ToolMenus.get().register_menu(sub_actor_context_menu.menu_name, actor_context_menu.menu_name)
+    # print("{} - is registered {}".format(sub_actor_context_menu.menu_name, is_sub_actor_context_menu_registered))
     sub_actor_context_menu.add_section("python.actormenu", "Tools")
     action_sampleactorprint = unreal_uiutils.create_menu_button(
         name="SampleActorTool",
@@ -81,7 +93,7 @@ def extend_editor():
         command_string='print(LevelLibrary.get_selected_level_actors())',
     )
     sub_actor_context_menu.add_menu_entry("python.actormenu", action_sampleactorprint)
-    actor_context_menu.add_menu_entry("python.actoractions", action_sampleactorprint)
+    # actor_context_menu.add_menu_entry("python.actoractions", action_sampleactorprint)
 
 # AssetRegistryPostLoad.register_callback(extend_editor)
 extend_editor()
