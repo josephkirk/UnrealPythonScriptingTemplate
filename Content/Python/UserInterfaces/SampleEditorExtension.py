@@ -19,37 +19,18 @@ def extend_editor():
         command_string="SystemLib.quit_editor()",
     )
 
-    # unreal_uiutils.extend_toolbar("Common",unreal_uiutils.create_separator())
     # This create a button on toolboard
     tb_reloadbutton = unreal_uiutils.create_toolbar_button(
         name="ReloadBtn",
         label="PyReload",
         command_string="import importlib; import unreal_startup; importlib.reload(unreal_startup); unreal_startup.reload()",
     )
-    tb_reloadbutton.set_icon("EditorStyle", "LevelEditor.Build", "LevelEditor.Build")
 
     # This create a drop down button on toolboard
     tb_combobutton = unreal_uiutils.create_toolbar_combo_button(
         "comboBtn", "python.tools"
     )
-    # print(unreal_uiutils.extend_toolbar("Common",tb_combobutton))
-
-    # print(tb_combobutton.get_editor_property("toolbar_data"))
-
-    new_mainmenu = unreal_uiutils.extend_toolbar(
-        "PythonToolbarButton", "PythonToolbarMenu", "PythonToolbarSection"
-    )
-    new_mainmenu.add_section("python.tools", "Python Toolbar")
-    new_mainmenu.add_menu_entry("python.tools", me_reloadbutton)
-    new_mainmenu.add_menu_entry("python.tools", me_quitbutton)
-
-    # tb_combomenu = unreal.ToolMenu()
-    # tb_combobutton_script.construct_menu_entry()
-    # tb_combobutton.add_section("common", "Python Tools")
-    # tb_combobutton.add_menu_entry("common", me_reloadbutton)
-    # tb_combobutton.add_menu_entry("common", me_quitbutton)
-
-    # This set the icon for the toolboard buttn. Read unreal_icon.py to see icon available for EditorStyle Set
+    #TODO: Find out where it is possible to register a new context menu for combo button
 
     # create submenu in 'File' Menu and register menu entry created above
     pythonsubmenu = unreal_uiutils.extend_mainmenu_item(
@@ -75,5 +56,32 @@ def extend_editor():
     )
     print(f"Script Object: {new_entry.script_object}")
 
+    # Extend Asset Context Menu
+    sub_asset_context_menu = unreal_uiutils.extend_toolmenu(unreal_uiutils.get_asset_context_menu(), "PythonAssetContextMenu", "Python Asset Actions")
+    sub_asset_context_menu.add_section("python.assetmenu", "Tools")
+    action_sampleassetprint = unreal_uiutils.create_menu_button(
+        name="SampleAssetTool",
+        label="Print Selected Assets",
+        command_string='print(UtilLibrary.get_selected_assets())',
+    )
+    sub_asset_context_menu.add_menu_entry("python.assetmenu", action_sampleassetprint)
 
-AssetRegistryPostLoad.register_callback(extend_editor)
+    # Extend Actor Context Menu
+    actor_context_menu = unreal_uiutils.get_actor_context_menu()
+    actor_context_menu.add_section("python.actoractions", "Python Tools")
+    sub_actor_context_menu = actor_context_menu.add_sub_menu(actor_context_menu.menu_name, "python.actoractions", "PythonActorContextMenu", "Python Actor Actions")
+    is_sub_actor_context_menu_registered = unreal.ToolMenus.get().is_menu_registered(sub_actor_context_menu.menu_name)
+    if not is_sub_actor_context_menu_registered:
+        unreal.ToolMenus.get().register_menu(sub_actor_context_menu.menu_name, actor_context_menu.menu_name)
+    print("{} - is registered {}".format(sub_actor_context_menu.menu_name, is_sub_actor_context_menu_registered))
+    sub_actor_context_menu.add_section("python.actormenu", "Tools")
+    action_sampleactorprint = unreal_uiutils.create_menu_button(
+        name="SampleActorTool",
+        label="Print Selected Actor",
+        command_string='print(LevelLibrary.get_selected_level_actors())',
+    )
+    sub_actor_context_menu.add_menu_entry("python.actormenu", action_sampleactorprint)
+    actor_context_menu.add_menu_entry("python.actoractions", action_sampleactorprint)
+
+# AssetRegistryPostLoad.register_callback(extend_editor)
+extend_editor()

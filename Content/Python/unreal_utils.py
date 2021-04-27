@@ -40,6 +40,8 @@ class AssetRegistryPostLoad:
             except Exception as why:
                 unreal.log_error("failed to run with error:\n{}".format(why))
 
+def get_outer_package():
+    return unreal.find_object(None, "/Engine/Transient")
 
 def create_unreal_asset(
     asset_name, package_path, factory, asset_class, force=False, save=True

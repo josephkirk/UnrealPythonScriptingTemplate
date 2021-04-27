@@ -25,5 +25,5 @@ class SampleActorAction(unreal.ActorActionUtility):
         unreal.log("Execute Sample Actor Action with {}".format(input_string))
 
 
-# unreal.new_object(SampleActorAction)
-unreal_utils.register_editor_utility_blueprint("SampleActorUtility", SampleActorAction)
+# Unreal need a actual blueprint asset to be created and inherit from the new class for it to work
+# unreal_utils.register_editor_utility_blueprint("SampleActorUtility", SampleActorAction)

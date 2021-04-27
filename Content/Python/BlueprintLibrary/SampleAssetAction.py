@@ -28,6 +28,6 @@ class SamplePythonAssetAction(unreal.AssetActionUtility):
 
 
 # Unreal need a actual blueprint asset to be created and inherit from the new class for it to work
-unreal_utils.register_editor_utility_blueprint(
-    "SampleAssetUtility", SamplePythonAssetAction
-)
+# unreal_utils.register_editor_utility_blueprint(
+#     "SampleAssetUtility", SamplePythonAssetAction
+# )
